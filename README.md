@@ -39,3 +39,12 @@ The sketchbook is intended to run "What you see is what you get" responsive pane
 * ( ) Hypothesis testing.
 * ( ) Causal modelling
 * ( ) Exploratory (flexible) descriptive statistics and visualizations. 
+
+## Instructions  
+### Docker  
+1. Install docker.  
+2. Clone repo and enter the directory.  
+3. Build the docker image: `docker image build -t myname:mytag .`.  
+4. Run `docker run -it -p 8080:8000 myname:mytag`.  
+5. Access 127.0.0.1:8080 using your browser.  
+
