@@ -3,7 +3,7 @@
 
 ---  
 
-Version  : 0.0.1
+Version  : 0.0.1  
 Mantainer: Felipe Argolo [@argolof](https://github.com/fargolo)  
 
 This software is alpha version. Use at your risk.  
