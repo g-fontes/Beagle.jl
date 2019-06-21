@@ -8,16 +8,19 @@ RUN apt-get update \
     wget \
     unzip \
     cmake \
-    && apt-get clean
+    locales-all \
+    && apt-get clean 
 
-COPY deps.jl deps.jl
+COPY app /abu
 
-RUN julia deps.jl
-
-COPY hello /hello
-
-WORKDIR /hello
+WORKDIR /abu
 
 EXPOSE 8000
 
-CMD ["bin/server"]
+RUN julia deps.jl
+RUN julia -i server.jl
+# The server won`t work without repeating the command bellow using CMD
+CMD julia -i server.jl
+# A weird bug involving @async default configs for Mux
+# Please refer to https://discourse.julialang.org/t/keeping-julia-alive-while-running-a-web-server-in-the-background/8422/4
+# Alternative nasty (infinite loop; useless cycles) solution: $julia -e "include(\"server.jl\");while(true);sleep(1);end"
