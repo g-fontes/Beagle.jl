@@ -7,15 +7,19 @@ Feel free to suggest sketchboard ideas to analyze data. I also appreciate help w
         * (X) Docker image
         * (X) Genie.jl (*halted branch*)
         * (X) Interact.jl + Mux.jl.
-	* ( ) CmdStan.jl
+        * (X) Gadfly.jl + Distributions.jl
 * ( ) 1 - Bayesian analysis.
+	* ( ) CmdStan.jl
         * ( ) Diagnostics (**shinystan**).
         * ( ) Data upload.
         * ( ) Use Julia code from user input.
         * ( ) ?
 * ( ) 2 - Hypothesis testing.
 * ( ) 3 - Causal modelling.
-* ( ) 4 - Exploratory Dashboard for visualizations and descriptive statisticsi.
+* ( ) 4 - Exploratory Dashboard for visualizations and descriptive statistics.
+
+### For bug hunters
+* ( ) Currently, the Gadfly+Distributions widget (on `server.jl`) is responsive on Juno but not on Mux(browser). 
 
 ## Instructions  
 ### Using Docker  
