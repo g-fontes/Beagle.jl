@@ -1,5 +1,7 @@
 using Interact, Mux
 using Gadfly, Distributions
+include("bernoulli.jl")
+
 
 ui_dist = @manipulate for α in 1:100, β = 1:100
     plot(x -> pdf(Beta(α, β), x), 0, 1)
