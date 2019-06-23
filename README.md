@@ -16,11 +16,11 @@ Abu may be used as a kunya, an honorific. To refer to a man by his fatherhood (o
 
 ---  
 
-## A grimoire for quantitative analysis  
+## A grimoire for Bayesian Inference
 
 Software has become a valuable tool for mathematical modelling.  
 Responsive interfaces (e.g. dashboards) help one to explore ideas, concepts and measurements in real time. They are widely used for several applications, from basic descriptive summaries to specialized model diagnostics.  
-Abu is intended to mirror the underlying sctructure of analysis procedures, aiding with data processing, automatic visualization and off the shelf mathematical tools.  
+Abu is intended to mirror the underlying structure of analysis procedures, aiding with data processing, automatic visualization and off the shelf mathematical tools.  
 The first module targets *Baysian inference* using **Stan** (through CmdStan.jl as backend.  
 
 **Abu** aims to be:  
