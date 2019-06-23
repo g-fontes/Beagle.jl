@@ -1,6 +1,6 @@
 using Interact, Mux
 using Gadfly, Distributions
-include("bernoulli.jl")
+#include("bernoulli.jl")
 
 
 ui_dist = @manipulate for α in 1:100, β = 1:100
