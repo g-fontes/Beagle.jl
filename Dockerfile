@@ -30,7 +30,12 @@ EXPOSE 8000
 RUN julia deps.jl
 RUN julia -i server.jl
 # The server won`t work without repeating the command bellow using CMD  
+# To speed startup, skip server deploy running with: 
+# $sudo docker container run -it -p 8080:8000 container_name bash
+# Which will replace command bellow
 CMD julia -i server.jl
 # A weird bug involving @async default configs for Mux  
 # Please refer to https://discourse.julialang.org/t/keeping-julia-alive-while-running-a-web-server-in-the-background/8422/4  
+
+
 # Alternative nasty (infinite loop; useless cycles) solution: $julia -e "include(\"server.jl\");while(true);sleep(1);end"  
