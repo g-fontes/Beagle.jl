@@ -1,18 +1,31 @@
 ## Contributors guide
-Feel free to suggest sketchboard ideas to analyze data. I also appreciate help with tips on software architecture.  
+Feel free to suggest new ideas. I also appreciate help with tips on software architecture.  
 
 ### Roadmap  
 
-* (X) Scaffolding
-        * (X) Docker image
-        * (X) Genie.jl (*halted branch*)
-        * (X) Interact.jl + Mux.jl.
-        * (X) Gadfly.jl + Distributions.jl
-	* (X) CmdStan.jl
-* ( ) Bayesian analysis.
-	* ( ) Model visualization (Prior, Data, Posterior)
-        * ( ) Diagnostics 
-        * ( ) Data upload.
+* (X) Scaffolding  
+        * (X) Docker image  
+        * (X) Genie.jl (*halted in bcp dir*)  
+        * (X) Interact.jl + Mux.jl.  
+        * (X) Gadfly.jl + Distributions.jl  
+	* (X) CmdStan.jl  
+* ( ) Bayesian analysis.  
+	* ( ) Generative helper  
+		* ( ) Visualizations  
+		* ( ) Pairwise WAIC for different likelihood functions  
+		* ( ) Descriptive  
+	* ( ) Model exploration  
+		* Use random chunk of data (defaults to small n_max) with ADVI (Stanmodel(Variational(),..)) for rapid interations.  
+		* (/) Priors (Responsive: update Stan model (Julia string) with user input).    
+		* ( ) Choose/compare likelihood functs.  
+		* ( ) Posterior density vs. Data points.  
+
+        * ( ) Results 
+		* Run NUTS HMC Sample 
+		* ( ) Density + Boxplot of posteriors   
+		* ( ) Chains   
+		* ( ) loo/WAIC validation (.RCall)  
+		* ( ) Save outputs to folder
 
 ### For bug hunters
 * ( ) Separate docker volume with cmdstan (1.1 GB)
