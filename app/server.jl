@@ -1,12 +1,4 @@
 using Interact, Mux
-#using Gadfly, Distributions
-#include("bernoulli.jl")
-
-
-#ui_dist = @manipulate for α in 1:100, β = 1:100
-#    plot(x -> pdf(Beta(α, β), x), 0, 1)
-#end
-#@layout! ui_dist dom"div"(observe(_),:α,:β)
 
 loadbutton = filepicker()
 hellobutton = button("Hello!")
@@ -22,3 +14,10 @@ ui_up = vbox(loadbutton,hbox(hellobutton,goodbyebutton,s,button(s[])))
     Mux.notfound())
 
 Mux.serve(abu)
+
+#using Gadfly, Distributions
+
+#ui_dist = @manipulate for α in 1:100, β = 1:100
+#    plot(x -> pdf(Beta(α, β), x), 0, 1)
+#end
+#@layout! ui_dist dom"div"(observe(_),:α,:β)

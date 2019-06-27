@@ -19,6 +19,16 @@ RUN apt-get update \
     python3 \
     && apt-get clean 
 
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+	&& locale-gen en_US.utf8 \
+	&& /usr/sbin/update-locale LANG=en_US.UTF-8
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+
+
+RUN apt-get install -y r-base
+RUN R -e 'install.packages("loo",repos='http://cran.rstudio.com/')' 
 
 COPY app /abu
 COPY cmdstan /abu/cmdstan
