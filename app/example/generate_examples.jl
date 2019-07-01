@@ -9,7 +9,7 @@ y_exp = exp.(x_o)
 y_log = log.(x_positive)
 y_sqrt = sqrt.(x_positive)
 
-df = DataFrame(x = x_o, y_linear = y_1, y_quadratic = y_2,
+df = DataFrame(x = x_o, x_positive = x_positive, y_linear = y_1, y_quadratic = y_2,
                y_cubic = y_3, y_exp = y_exp,
                y_log = y_log, y_sqrt = y_sqrt)
 

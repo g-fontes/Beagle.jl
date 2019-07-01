@@ -4,7 +4,7 @@ using Distributions
 using GLM, StatsBase
 
 include("example/generate_examples.jl")
-df = CSV.read("example/df_example.csv")
+df = CSV.read("example/df_example.csv", copycols = true)
 
 xlims!(-5,5)
 scatter(df[:x,],df[:y_linear],lab="linear")
@@ -21,37 +21,65 @@ ylims!(-5,15)
 # StatsBase::r2(obj,variant=:Nagelkerke)
 # using every transform function
 
-transforms =  ["linear","quadratic","cubic","exp","log","'sqrt"]
+transforms =  ["linear","quadratic","cubic","exp","log","sqrt"]
 
-function TransformAIC(x,y,transforms)
+function TransformAIC(x,y,
+                      transforms = ["linear","quadratic","cubic","exp","log","sqrt"])
 
     df = DataFrame(x = x, y = y)
     trans = DataFrame(transforms = transforms,
-                         AIC = repeat(NaN,length(transforms)),
-                         r2 = repeat(NaN,length(transforms)))
+                         AIC = .0,
+                         r2 = .0)
+
     for t in transforms
         if t == "linear"
             model = lm(@formula(y ~ x),df)
-            trans.AIC[:linear] = aic(model)
-            trans.r2[:linear] = r2(model)
+            trans[trans.transforms .== t,:AIC] = aic(model)
+            trans[trans.transforms .== t,:r2] = r2(model)
         end
         if t == "quadratic"
-            model = lm(@formula(y ~ x),df)
-            trans.AIC[:linear] = aic(model)
-            trans.r2[:linear] = r2(model)
+            model = lm(@formula(y ~ x^2),df)
+            trans[trans.transforms .== t,:AIC] = aic(model)
+            trans[trans.transforms .== t,:r2] = r2(model)
         end
-        if t == "linear"
-            trans.AIC[:linear] = aic(lm(@formula(y_linear ~ exp(x)),df)))
+        if t == "cubic"
+            model = lm(@formula(y ~ x^3),df)
+            trans[trans.transforms .== t,:AIC] = aic(model)
+            trans[trans.transforms .== t,:r2] = r2(model)
         end
-        if t == "linear"
-            trans.AIC[:linear] = aic(lm(@formula(y_linear ~ exp(x)),df)))
+        if t == "exp"
+            model = lm(@formula(y ~ exp(x)),df)
+            trans[trans.transforms .== t,:AIC] = aic(model)
+            trans[trans.transforms .== t,:r2] = r2(model)
         end
-        if t == "linear"
-            trans.AIC[:linear] = aic(lm(@formula(y_linear ~ exp(x)),df)))
+        if t == "log" && minimum(df.x) >= 0
+            model = lm(@formula(y ~ log(x)),df)
+            trans[trans.transforms .== t,:AIC] = aic(model)
+            trans[trans.transforms .== t,:r2] = r2(model)
         end
-        if t == "linear"
-            trans.AIC[:linear] = aic(lm(@formula(y_linear ~ exp(x)),df)))
+        if t == "sqrt" && minimum(df.x) >= 0
+            model = lm(@formula(y ~ sqrt(x)),df)
+            trans[trans.transforms .== t,:AIC] = aic(model)
+            trans[trans.transforms .== t,:r2] = r2(model)
         end
     end
+
+    return trans
+
+end
+
+
+#
+function min2(x)
+
+    min = x[1]
+
+    for a in x
+        if a > min
+            a = min
+        end
+    end
+
+    return min
 
 end
