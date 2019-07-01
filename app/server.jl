@@ -8,7 +8,7 @@ s = slider(1:100)
 ui_up = vbox(loadbutton,hbox(hellobutton,goodbyebutton,s,button(s[])))
 
 @app abu = (
-    Mux.defaults,
+    Mux.defaults
 #    page("/", req -> ui_dist),
     page("/", req -> ui_up),
     Mux.notfound())
