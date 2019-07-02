@@ -7,10 +7,10 @@ ui_dist = @manipulate for α in 1:100, β = 1:100
 end
 @layout! ui_dist dom"div"(observe(_),:α,:β)
 
-menu_bts = vbox(HTML("""<button class="button" onclick='Blink.msg("press", "Explore")'>go</button>"""),
-		HTML("""<button class="button" onclick='Blink.msg("press", "Descriptive")'>go</button>"""),
-                HTML("""<button class="button" onclick='Blink.msg("press", "Data")'>go</button>"""
-                HTML("""<button class="button" onclick='Blink.msg("press", "Diagnostics")'>go</button>"""
+menu_bts = vbox(HTML("""<button class="button" onclick='Blink.msg("press", "Explore")'>Explore</button>"""),
+		HTML("""<button class="button" onclick='Blink.msg("press", "Descriptive")'>Descriptive</button>"""),
+                HTML("""<button class="button" onclick='Blink.msg("press", "Data")'>Data</button>"""),
+                HTML("""<button class="button" onclick='Blink.msg("press", "Diagnostics")'>Diagnostics</button>"""))
 
 
 main_w = Window()
@@ -23,4 +23,4 @@ handle(main_w, "press") do args
          "Diagnostics" => body!(main_w,hbox(menu_bts,args), async=false)  
   end
 end
-load!(main_w,"../style/panel_buttons.css")
+load!(main_w,"style/panel_buttons.css")
