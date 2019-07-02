@@ -1,4 +1,7 @@
 # https://mc-stan.org/loo/articles/loo2-with-rstan.html
+# include("bernouli.jl")
+# Reshapes chns array and evaluates using R::loo
+
 using RCall
 @rlibrary loo
 

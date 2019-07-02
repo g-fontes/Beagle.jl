@@ -1,6 +1,8 @@
+# Mock model for loo validation 
+
 using CmdStan, StatsPlots
 set_cmdstan_home!("/abu/cmdstan")
-ProjDir = "/tmp"
+ProjDir = "../tmp"
 
 const bernoullistanmodel = "
 data {

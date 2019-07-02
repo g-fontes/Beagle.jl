@@ -1,3 +1,6 @@
+# Used to study type of objects
+## Documentation was not clear 
+
 library(loo)
 library(rstan)
 
