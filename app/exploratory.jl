@@ -4,7 +4,7 @@ using Distributions
 using GLM, StatsBase, StatsPlots
 
 include("example/generate_examples.jl")
-df = CSV.read("example/df_example.csv", copycols = true)
+df = CSV.read("app/example/df_example.csv", copycols = true)
 
 xlims!(-5,5)
 scatter(df[:x,],df[:y_linear],lab="linear")
@@ -67,5 +67,9 @@ function TransformAIC(x,y,
     end
 
     return trans, models
+
+end
+
+function PlotBestAIC(x,y,trans,model)
 
 end
