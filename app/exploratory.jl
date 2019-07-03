@@ -25,10 +25,13 @@ function TransformAIC(x,y,
                       transforms = ["linear","quadratic","cubic","exp"#=,"log","sqrt"]=#])
 
     df = DataFrame(x = x, y = y)
+    df.x2 = df.x.^2
+    df.x3 = df.x.^3
+    df.exp = exp.(df.x)
     trans = DataFrame(transforms = transforms,
                          AIC = .0,
                          r2 = .0)
-    models = []
+    coefs = []
 
     for t in transforms
 
@@ -38,17 +41,17 @@ function TransformAIC(x,y,
             trans[trans.transforms .== t,:r2] = r2(model)
         end
         if t == "quadratic"
-            model = lm(@formula(y ~ x^2),df)
+            model = lm(@formula(y ~ x + x2),df)
             trans[trans.transforms .== t,:AIC] = aic(model)
             trans[trans.transforms .== t,:r2] = r2(model)
         end
         if t == "cubic"
-            model = lm(@formula(y ~ x^3),df)
+            model = lm(@formula(y ~ x + x2 + x3),df)
             trans[trans.transforms .== t,:AIC] = aic(model)
             trans[trans.transforms .== t,:r2] = r2(model)
         end
         if t == "exp"
-            model = lm(@formula(y ~ exp(x)),df)
+            model = lm(@formula(y ~ exp),df)
             trans[trans.transforms .== t,:AIC] = aic(model)
             trans[trans.transforms .== t,:r2] = r2(model)
         end
@@ -62,14 +65,59 @@ function TransformAIC(x,y,
             trans[trans.transforms .== t,:AIC] = aic(model)
             trans[trans.transforms .== t,:r2] = r2(model)
         end=#
-        push!(models,model)
+        push!(coefs,coef(model))
 
     end
 
-    return trans, models
+    trans.coef = coefs
+
+    return trans
 
 end
 
-function PlotBestAIC(x,y,trans,model)
+function PlotBestAIC(x,y,trans)
 
+    best_aic = trans.transforms[trans.AIC .== minimum(trans.AIC)]
+    domain = collect(minimum(x):.01:maximum(x))
+
+    if best_aic[1] == "linear"
+        coefs = trans.coef[trans.transforms .== best_aic]
+        p = plot(
+            layer(x = x,y = y,Geom.point),
+            layer(x = domain,y = coefs[1][1] .+ coefs[1][2].*domain,Geom.line),
+        )
+    end
+
+    if best_aic[1] == "quadratic"
+        coefs = trans.coef[trans.transforms .== best_aic]
+        p = plot(
+            layer(x = x,y = y,Geom.point),
+            layer(x = domain,y = coefs[1][2] .+
+                                 coefs[1][2].*domain .+
+                                 coefs[1][3].*(domain.^2),
+                  Geom.line)
+        )
+    end
+
+    if best_aic[1] == "cubic"
+        coefs = trans.coef[trans.transforms .== best_aic]
+        p = plot(
+            layer(x = x,y = y,Geom.point),
+            layer(x = domain,y = coefs[1][2] .+
+                                 coefs[1][2].*domain .+
+                                 coefs[1][3].*(domain.^2) .+
+                                 coefs[1][4].*(domain.^3),
+                  Geom.line)
+        )        
+    end
+
+    if best_aic[1] == "exp"
+        coefs = trans.coef[trans.transforms .== best_aic]
+        p = plot(
+            layer(x = x,y = y,Geom.point),
+            layer(x = domain,y = coefs[1][2] .+
+                                 coefs[1][2].*exp.(domain),
+                  Geom.line)
+        )
+    end
 end
