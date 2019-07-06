@@ -1,8 +1,8 @@
-using DataFrames, Match
+using DataFrames, CSV, Match
 using GLM
 using StatsBase: aic , r2
 
- 
+
 # To
 ## StatsBase::aicc
 ## StatsBase::r2(obj,variant=:Nagelkerke)
@@ -19,10 +19,11 @@ function elem_fits(transform::String, df::DataFrame)
     end
 end
 
-function TransformGoF(x::Array{Float64,1},y::Array{Float64,1},
+function TransformGoF(x_in::Union{Array{Float64,1},CSV.Column{Float64,Float64}},
+                      y_in::Union{Array{Float64,1},CSV.Column{Float64,Float64}},
                       transforms = ["linear","quadratic","cubic","exp"#=,"log","sqrt"]=#])
 
-    df = DataFrame(x = x, y = y)
+    df = DataFrame(x = x_in, y = y_in)
     df.x2 = df.x.^2
     df.x3 = df.x.^3
     df.exp = exp.(df.x)
@@ -42,4 +43,3 @@ function TransformGoF(x::Array{Float64,1},y::Array{Float64,1},
     return trans
 
 end
-
