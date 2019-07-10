@@ -2,7 +2,10 @@ using Interact, Blink
 using Gadfly, Distributions
 using Match
 
-function ExportWidget(x_in::Union{Array{Float64,1},CSV.Column{Float64,Float64}},
+include("PlotFit.jl")
+include("TransformGoF.jl")
+
+function BeaglePanelWidget(x_in::Union{Array{Float64,1},CSV.Column{Float64,Float64}},
                       y_in::Union{Array{Float64,1},CSV.Column{Float64,Float64}},
                       transforms = ["linear","quadratic","cubic",
                                     "exp"#=,"log","sqrt"]=#])

@@ -1,8 +1,7 @@
 module Beagle
 
-export TransformGoF , PlotBestFit
+export BeaglePanelWidget
 
-include("TransformGoF.jl")
-include("PlotBestFit.jl")
+include("BeaglePanelWidget.jl")
 
 end
